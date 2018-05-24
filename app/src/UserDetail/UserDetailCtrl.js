@@ -1,42 +1,43 @@
 'use strict';
 
-userApp.controller('UserDetailCtrl', function($scope, $routeParams, UsersService) {
+userApp.component('userDetailCtrl', {
 
-    $scope.userLoaded = false;
+    controller: function($routeParams, UsersService) {
+        let vm = this;
+        vm.userLoaded = false;
 
-    $scope.user = UsersService.get({
-        userId: $routeParams['userId']
-    }, function(successResult) {
-        // Окей!
-        $scope.notfoundError = false;
-        $scope.userLoaded = true;
-
-        $scope.activeTab = 1;
-        $scope.disableControlTab = true;
-    }, function(errorResult) {
-        // Не окей..
-        $scope.notfoundError = true;
-        $scope.userLoaded = true;
-
-
-    });
-
-    $scope.user.$promise.then(function(result) {
-        //$scope.userLoaded = true;
-    });
-
-    $scope.deleteUser = function(userId) {
-
-        $scope.user.$delete({
-            userId: userId
+        vm.user = UsersService.get({
+            userId: $routeParams['userId']
         }, function(successResult) {
             // Окей!
-            $scope.deletionSuccess = true;
+            vm.notfoundError = false;
+            vm.userLoaded = true;
+
+            vm.activeTab = 1;
+            vm.disableControlTab = true;
         }, function(errorResult) {
             // Не окей..
-            $scope.deletionError = true;
+            vm.notfoundError = true;
+            vm.userLoaded = true;
+        });
+        vm.user.$promise.then(function(result) {
+        //this.userLoaded = true;
         });
 
-    }
+        vm.deleteUser = function(userId) {
+
+            vm.user.$delete({
+                userId: userId
+            }, function(successResult) {
+                // Окей!
+                vm.deletionSuccess = true;
+            }, function(errorResult) {
+                // Не окей..
+                vm.deletionError = true;
+            });
+
+        };
+    },
+    templateUrl: './src/UserDetail/UserDetail.html'
 
 });
