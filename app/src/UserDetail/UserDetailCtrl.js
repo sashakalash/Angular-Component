@@ -10,9 +10,10 @@ userApp.component('userDetailCtrl', {
             userId: $routeParams['userId']
         }, function(successResult) {
             // Окей!
+            
             vm.notfoundError = false;
             vm.userLoaded = true;
-
+            console.log(vm.userLoaded)
             vm.activeTab = 1;
             vm.disableControlTab = true;
         }, function(errorResult) {

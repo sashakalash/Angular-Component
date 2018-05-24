@@ -2,7 +2,7 @@
 
 userApp.component('userList', {
 
-    controller: function UserListCtrl(UsersService) {
+    controller: function UserListCtrl(UsersService, $mdDialog) {
 
         this.users = UsersService.query();
 
